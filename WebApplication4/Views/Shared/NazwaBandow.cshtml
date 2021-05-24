@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApplication4.NewModels.BandsNewModel>
+
+<table style="width: 100%">
+    <thead style="background-color: pink;">
+
+        <tr>
+
+            <th>
+                Nazwa Zespołu
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+           
+            
+
+
+                <tr>
+
+                    <td>
+                        @item.bands_name
+                    </td>
+
+                </tr>
+            
+        }
+    </tbody>
+</table>

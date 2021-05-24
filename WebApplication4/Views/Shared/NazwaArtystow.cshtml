@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApplication4.NewModels.ArtistsNewModel>
+
+<table style="width: 100%">
+    <thead style="background-color: pink;">
+
+        <tr>
+
+            <th>
+                Imię
+            </th>
+
+            <th>
+                Nazwisko
+            </th>
+
+            <th>
+                Nick
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+
+
+
+            <tr>
+
+                <td>
+                    @item.name
+                </td>
+
+                <td>
+                    @item.surname
+                </td>
+
+                <td>
+                    @item.nick
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

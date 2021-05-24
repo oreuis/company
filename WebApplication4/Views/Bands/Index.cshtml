@@ -1,0 +1,106 @@
+﻿@model WebApplication4.NewModels.BandsNewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        WyswietlBand();
+        $("#btnSave").click(function () {
+            AddBands();
+        });
+
+        WyswietlBand();
+    });
+
+
+    function AddBands() {
+        var obiektBandu = {};
+        obiektBandu.bands_name = $("#txtBand_Name").val();
+
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            url: '/Bands/Index',
+            data: JSON.stringify(obiektBandu),
+            success: function (data) {
+                if (data.success === true) {
+                    alert(data.message);
+                    WyswietlBand();
+
+                }
+
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    }
+
+
+    function WyswietlBand() {
+
+        $.ajax({
+            async: true,
+            data: 'Get',
+            dataType: 'HTML',
+            contentType: false,
+            processData: false,
+            url: '/Bands/WyswietlBand',
+            success: function (data) {
+                $("#wys").html(data);
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+
+    }
+
+
+</script>
+<div style="margin-top: 30px">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddBands" data-backdrop="static" data-keyboard="false">Add Bands</button>
+
+</div>
+
+<div id="AddBands" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bands</h4>
+            </div>
+
+            <div class="modal-body">
+                <form id="formBands">
+                    <div class="container">
+                        @*@Html.HiddenFor(model => model.id, new { @id = "txtid" })*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.bands_name) <br>
+                            @Html.TextBoxFor(model => model.bands_name, new { @class = "from-control", id = "txtBand_Name" })
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSave" type="button" class="btn btn-success">save</button> &nbsp;
+                <button type="button" data-dismiss="modal" class="btn btn-danger">cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="wys">
+
+    
+
+</div>

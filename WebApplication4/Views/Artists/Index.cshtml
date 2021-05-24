@@ -1,0 +1,115 @@
+﻿@model WebApplication4.NewModels.ArtistsNewModel
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        WyswietlArtists();
+        $("#btnSave").click(function () {
+            AddArtist();
+        });
+        WyswietlArtists();
+    });
+
+
+    function AddArtist() {
+        var obiektArtysty = {};
+        obiektArtysty.name = $("#txtName").val();
+        obiektArtysty.surname = $("#txtSurname").val();
+        obiektArtysty.nick = $("#txtNick").val();
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            url: '/Artists/Index',
+            data: JSON.stringify(obiektArtysty),
+            success: function (data) {
+                if (data.success === true) {
+                    alert(data.message);
+                    WyswietlArtists();
+
+                }
+
+            },
+            error: function () {
+                alert('error1');
+            }
+        });
+    }
+
+
+    function WyswietlArtists() {
+
+        $.ajax({
+            async: true,
+            data: 'Get',
+            dataType: 'HTML',
+            contentType: false,
+            processData: false,
+            url: '/Artists/WyswietlArtist',
+            success: function (data) {
+                $("#wysa").html(data);
+            },
+            error: function () {
+                alert('error2');
+            }
+        });
+
+    }
+
+
+
+</script>
+<div style="margin-top: 30px">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddArtist" data-backdrop="static" data-keyboard="false">Add Artist</button>
+
+</div>
+
+<div id="AddArtist" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Artist</h4>
+            </div>
+
+            <div class="modal-body">
+                <form id="formArtist">
+                    <div class="container">
+                        @*@Html.HiddenFor(model => model.id, new { @id = "txtid" })*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.name) <br>
+                            @Html.TextBoxFor(model => model.name, new { @class = "from-control", id = "txtName" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.surname)<br>
+                            @Html.TextBoxFor(model => model.surname, new { @class = "from-control", id = "txtSurname" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nick)<br>
+                            @Html.TextBoxFor(model => model.nick, new { @class = "from-control", id = "txtNick" })
+                        </div>
+                        
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSave" type="button" class="btn btn-success">save</button> &nbsp;
+                <button type="button" data-dismiss="modal" class="btn btn-danger">cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="wysa">
+
+
+
+</div>
+

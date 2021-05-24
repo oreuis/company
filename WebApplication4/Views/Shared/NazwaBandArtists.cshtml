@@ -1,0 +1,56 @@
+﻿
+@model IEnumerable<WebApplication4.NewModels.BandArtistsNewModel>
+
+<table style="width: 100%">
+    <thead style="background-color: pink;">
+
+        <tr>
+
+            <th>
+                Imię
+            </th>
+
+            <th>
+                Nazwisko
+            </th>
+
+            <th>
+                Nick
+            </th>
+
+            <th>
+                Zespół
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+
+
+
+            <tr>
+
+                <td>
+                    @item.name
+                </td>
+
+                <td>
+                    @item.surname
+                </td>
+
+                <td>
+                    @item.nick
+                </td>
+
+                <td>
+                    @item.bands_name
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
